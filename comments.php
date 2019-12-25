@@ -35,9 +35,10 @@
     }
 ?>
 
+        <button class='btn' onclick="toggle_visibility('comments'); change_text()">Hide Comments</button> 
+            
 
-
-<div class="comments">
+<div class="comments" id= "comments">
         <h3>comments</h3>
         <?php
             foreach ($comments as $comment) {
@@ -51,3 +52,19 @@
                 ?>
 
 </div>
+
+
+    <script type="text/javascript">
+        document.querySelector('button').addEventListener('click', toggle)
+
+        function toggle(event) {
+        if (document.getElementById('comments').style.display == 'none') {
+            event.target.innerText = 'Hide Comments'
+            document.getElementById('comments').style.display = ''
+        } else {
+            event.target.innerText = 'Show comments'
+            document.getElementById('comments').style.display = 'none'
+        }
+        }
+    </script>
+
