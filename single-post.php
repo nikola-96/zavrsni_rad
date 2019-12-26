@@ -41,6 +41,8 @@
 
     }
 ?>
+
+
 <main role="main" class="container">
 
 <div class="row">
@@ -54,6 +56,20 @@
 
                     <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
+                        <form method="post" action="create-comment.php">
+                            <p><label for="comment_owner">Your Name:</label></p>
+                            <input type="text" name="comment_owner" id="comment_owner" size="60" maxlenght="150" required="required"></p>
+
+                            <p>
+                                <label for="comment_text">Text</label><br>
+                                <textarea id="comment_text" name="comment_text" rows="4" cols="60"></textarea>
+
+                            </p>
+                            <button type="submit" name="submit" value="submit">Add Comment</button>
+
+                        </form>
+
+
 
     <?php include "comments.php"; ?>
         </div>
