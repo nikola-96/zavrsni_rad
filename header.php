@@ -6,8 +6,6 @@
                 <a class="nav-link active" href="index.php">HOME</a>
                 <a class="nav-link" href="posts.php">ALL POSTS</a>
                 <a class="nav-link" href="create-post.php">CREATE POST</a>
-                <!-- <a class="nav-link" href="#">New hires</a>
-                <a class="nav-link" href="#">About</a> -->
             </nav>
         </div>
     </div>

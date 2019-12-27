@@ -1,5 +1,9 @@
  
+<!-- <?php include "dbh.inc.php"; ?> -->
+
 <?php
+//  $connection = new dbh;
+//  $connection-> connect();
     $servername = "127.0.0.1";
     $username = "root";
     $password = "";
@@ -23,24 +27,23 @@
 <?php include "header.php"; ?>
 
 <?php
-    if (isset($_GET['id'])) {
-
-    // pripremamo upit
-    $sql = "SELECT id, title, body, author, DATE_FORMAT(created_at, '%e %b %Y') AS fmt_created_at FROM posts WHERE id = {$_GET['id']}";
+    if (isset($_REQUEST['id'])) {
+    $sql = "SELECT id, title, body, author, DATE_FORMAT(created_at, '%e %b %Y') AS fmt_created_at FROM posts WHERE id = {$_REQUEST['id']}";
     $statement = $connection->prepare($sql);
-
-    // izvrsavamo upit
     $statement->execute();
-
-    // zelimo da se rezultat vrati kao asocijativni niz.
-    // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
     $statement->setFetchMode(PDO::FETCH_ASSOC);
-
-    // punimo promenjivu sa rezultatom upita
     $singlePost = $statement->fetch();
 
     }
 ?>
+        <?php
+        if (isset($_POST['delete_btn_post'])){
+            $sql = "DELETE FROM posts  WHERE id = {$_POST['delete_btn_post']} ";
+            $statement = $connection->prepare($sql);
+            $statement->execute();
+            header("Location: index.php");
+        }
+        ?>           
 
 
 <main role="main" class="container">
@@ -55,25 +58,51 @@
                     <p class="blog-post-meta"><?php echo $singlePost['fmt_created_at']; ?> by <a href="#"><?php echo $singlePost['author']?></a></p>
 
                     <p><?php echo $singlePost['body']; ?></p>
+                    <form action= "" method = "post">
+                            <input type="hidden" name="delete_btn_post" value="<?php echo $singlePost['id']; ?>"/>
+                            <input type="submit" name="delete" value="Delete this post" class="btn btn-primary" onclick="return deleletconfig()" />
+                    </form>
+
         </div><!-- /.blog-post -->
-                        <form method="post" action="create-comment.php">
+        <?php if (isset($_REQUEST['is_valid']) && $_REQUEST['is_valid'] == false) { ?>
+
+            <div class="alert alert-danger echo " role="alert" >
+            Please fill in all required fields!
+            </div>
+        <?php } ?>
+                        <form name="myform" method="post" action="create-comment.php" onsubmit="return validateform()" >
                             <p><label for="comment_owner">Your Name:</label></p>
-                            <input type="text" name="comment_owner" id="comment_owner" size="60" maxlenght="150" required="required"></p>
+                            <input type="text" class="form-control" name="comment_owner" id="comment_owner" size="60" maxlenght="150" ></p>
 
                             <p>
                                 <label for="comment_text">Text</label><br>
-                                <textarea id="comment_text" name="comment_text" rows="4" cols="60"></textarea>
+                                <textarea id="comment_text" class="form-control" name="comment_text" rows="4" cols="60"></textarea>
 
                             </p>
-                            <button type="submit" name="submit" value="submit">Add Comment</button>
+                            <input type="hidden" name = "id" id="id" value = "<?php echo$_GET['id']; ?>">
+                            <input type="submit" class="btn btn-danger" name="submit"  value = "Add Comment">
 
                         </form>
 
 
 
-    <?php include "comments.php"; ?>
+
+            <?php include "comments.php"; ?>
         </div>
-<?php include "sidebar.php"; ?>
+        <?php include "sidebar.php"; ?>
 </div>
 </main>
-<?php include "footer.php"; ?>
+    <?php include "footer.php"; ?>
+
+
+            <script>
+                    function deleletconfig(){
+
+                    var del=confirm("Do you really want to delete this post?");
+                        if (del){
+                            }else{
+                            alert("Post Not Deleted")
+                            }
+                            return del;
+                        }
+            </script>
