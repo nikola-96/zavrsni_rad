@@ -1,4 +1,3 @@
-
 <?php include "header.php"; ?>
     <?php
         $servername = "127.0.0.1";
@@ -7,14 +6,12 @@
         $dbname = "blog";
         try {
             $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e)
         {
             echo $e->getMessage();
         }
-
     ?>
 
     
@@ -38,7 +35,7 @@
                 <div class="blog-post">
 
                     <h2 class="blog-post-title"><?php echo($post['title']) ?></h2>
-                    <p class="blog-post-meta"><?php echo($post['fmt_created_at']) ?> <a href="#"><?php echo($post['author']) ?></a></p>
+                    <p class="blog-post-meta"><?php echo($post['fmt_created_at']) ?> <?php echo($post['author']) ?></a></p>
                     <p><?php echo($post['fmt_body'])."..." ?></p>
                 </div><!-- /.blog-post -->
             <?php 
@@ -49,4 +46,3 @@
     </div>
 </main>
             <?php include "footer.php"; ?>
-

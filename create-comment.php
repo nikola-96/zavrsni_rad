@@ -12,8 +12,6 @@
         echo $e->getMessage();
     }
 ?>
-
-
 <?php
 if( $_POST['comment_owner']==="" ||  $_POST['comment_text']=="" || $_POST['id']==""){
  header('Location: single-post.php?id=' . $_POST['id'] . "&is_valid=0");
@@ -24,5 +22,3 @@ if( $_POST['comment_owner']==="" ||  $_POST['comment_text']=="" || $_POST['id']=
         header('Location: single-post.php?id=' . $_POST['id']);
         }
     ?>
-
-  

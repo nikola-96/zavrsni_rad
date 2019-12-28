@@ -21,6 +21,5 @@
                 $statement = $connection->prepare($sql);
                 $statement->execute();
                     header('Location: index.php');
-
     }
  ?>

@@ -17,7 +17,6 @@
     ?>
         <?php
             if (isset($_POST['delete_btn'])){
-            
                 $sql = "DELETE FROM comments WHERE id = {$_POST['delete_btn']} ";
                 $statement = $connection->prepare($sql);
                 $statement->execute();

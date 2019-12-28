@@ -13,26 +13,14 @@
     {
         echo $e->getMessage();
     }
-
 ?>
 <?php
-
-// pripremamo upit
 $sql = "SELECT id, title FROM posts ORDER BY created_at DESC LIMIT 5";
 $statement = $connection->prepare($sql);
-
-// izvrsavamo upit
 $statement->execute();
-
-// zelimo da se rezultat vrati kao asocijativni niz.
 $statement->setFetchMode(PDO::FETCH_ASSOC);
-
-// punimo promenjivu sa rezultatom upita
 $post_title = $statement->fetchAll();
-
-
 ?>
-
 
 <aside class="col-sm-3 ml-sm-auto blog-sidebar">
             <div class="sidebar-module sidebar-module-inset">
